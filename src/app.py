@@ -32,3 +32,5 @@ try:
 except Exception as e:
     print(f"Error: {e}")
     # createdb -h localhost -U gitpod estadisticasNBA
+# psql -h 127.0.0.1 -p 5432 -U gitpod -W -d estadisticasNBA
+#psql -h 127.0.0.1 -p 5432 -U gitpod -W postgres -d estadisticasNBA
