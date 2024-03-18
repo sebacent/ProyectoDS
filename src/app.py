@@ -1,30 +1,27 @@
 
-import sqlalchemy
-import os
-import psycopg2
-from sqlalchemy import create_engine
-from dotenv import load_dotenv
+import sqlite3
+import pandas as pd
 
-load_dotenv()
 
-dbname = os.getenv("DB_NAME")
-user = os.getenv("DB_USER")
-password = os.getenv("DB_PASSWORD")
-host = os.getenv("DB_HOST")
-port = os.getenv("DB_PORT")
+# A database named "NBA.db" is generated in the current directory
 
-try:
-    connection = psycopg2.connect(
-        host=host,
-        user=user,
-        password=password
-    )
+con = sqlite3.connect("NBA.db")
 
-    # Crear un cursor para ejecutar consultas SQL
-    cursor = connection.cursor()
+cursor = con.cursor()
 
-    # Crear la base de datos si no existe
-    cursor.execute("CREATE DATABASE IF NOT EXISTS NBA;")
-    
-except psycopg2.Error as error:
-    print("Error al conectar o interactuar con la base de datos:", error)
+# Obtener información de la tabla
+
+resultado = cursor.execute("SELECT PTS, MIN FROM ESTADISTICAS")
+dat = resultado.fetchone()
+
+for data in dat:
+    print(int(data[0]))
+    break
+
+
+
+con.close()
+#res = cur.execute("SELECT PLAYER_NAME, PTS FROM ESTADISTICAS;")
+
+#PLAYER_NAME, PTS = res.fetchone()
+#print(f'El jugador {PLAYER_NAME}, hizo {PTS} puntos')
