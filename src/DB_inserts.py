@@ -1,7 +1,7 @@
 import sqlite3
 import pandas as pd
-
-players = pd.read_csv(r'C:\Users\sebas\Documents\Proyecto_DS\ProyectoDS\data\raw\data_complete_raw.csv')
+# NO SE USA
+players = pd.read_csv(r'C:\Users\sebas\Documents\Proyecto_DS\ProyectoDS\data\raw\data_complete_raw.csv', encoding='utf-8',dtype={'PLAYER_ID': int})
 players_records = players.to_records(index=False)
 
 
