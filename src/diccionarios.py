@@ -3,18 +3,9 @@ import os
 
 ## Script para importar los diccionarios y utilizarlos en la app.
 
-#players = pd.read_csv(r'data\raw\data_complete_raw.csv')
-ruta_archivo = os.path.join(
-    os.path.expanduser("~"),
-    "Repositorio DS",
-    "data",
-    "raw",
-    "data_complete_raw.csv",
-)
+players = pd.read_csv('src/data_complete_raw.csv')
 
-players = pd.read_csv(ruta_archivo)
-
-
+players = players.sort_values(by='PLAYER_NAME')
 #Se crean diccionarios para el nombre de los equipos y su abreviación, y para el nombre de los jugadores
 
 team_name_dict = players.groupby('TEAM_ID')['TEAM_NAME'].first().to_dict()
