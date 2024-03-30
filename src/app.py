@@ -3,7 +3,6 @@ import diccionarios
 import pickle
 import numpy as np
 import base64
-#from joblib import load
 from pickle import load
 
 # Function to encode image as base64 string (for security)
@@ -36,7 +35,6 @@ st.markdown(background_image, unsafe_allow_html=True)
 with open('/workspace/ProyectoDS/models/random_model.pkl', 'rb') as archivo_modelo:
     model = pickle.load(archivo_modelo)
 
-print(type(model))
 #cargo los diccionarios
 players_dict = diccionarios.players_dict
 team_abbre_dict = diccionarios.team_abbre_dict
