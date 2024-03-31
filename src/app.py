@@ -32,7 +32,7 @@ background_image = f"""
 st.markdown(background_image, unsafe_allow_html=True)
 
 #cargo el modelo optimizado
-with open('models/random_forest_randstate42_min_samp_leaf_60_n_est_400_max_depth_10_resto_default.pkl', 'rb') as archivo_modelo:
+with open('../models/random_forest_randstate42_min_samp_leaf_60_n_est_400_max_depth_10_resto_default.pkl', 'rb') as archivo_modelo:
     model = pickle.load(archivo_modelo)
 
 #cargo los diccionarios
