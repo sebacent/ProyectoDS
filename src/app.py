@@ -18,16 +18,26 @@ image_filename = "pelota-baloncesto.avif"  # Replace with your actual path
 encoded_image = get_base64_of_bin_file(image_filename)
 
 # Set background image using base64 string
+#background_image = f"""
+#<style>
+#[data-testid="stAppViewContainer"] > .main {{
+#  background-image: url("data:image/jpg;base64,{encoded_image}");  # Use data URI with base64 string
+#  background-size: 100vw 100vh;
+#  background-position: center;
+#  background-repeat: repeat;
+#}}
+#</style>
+#"""
 background_image = f"""
 <style>
-[data-testid="stAppViewContainer"] > .main {{
-  background-image: url("data:image/jpg;base64,{encoded_image}");  # Use data URI with base64 string
-  background-size: 100vw 100vh;
-  background-position: center;
-  background-repeat: repeat;
+body {{
+  background-image: url("data:image/jpg;base64,{encoded_image}");
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the image */
 }}
 </style>
 """
+
 
 st.markdown(background_image, unsafe_allow_html=True)
 
