@@ -12,7 +12,7 @@ def get_base64_of_bin_file(bin_file):
         return base64.b64encode(data).decode('utf-8')
 
 # Path to your local image file
-image_filename = "src/aro.avif"  # Replace with your actual path
+image_filename = "../src/aro.avif"  # Replace with your actual path
 
 # Encode image as base64 string
 encoded_image = get_base64_of_bin_file(image_filename)
@@ -32,7 +32,7 @@ background_image = f"""
 st.markdown(background_image, unsafe_allow_html=True)
 
 #cargo el modelo optimizado
-with open('/workspaces/ProyectoDS/models/random_forest_randstate42_min_samp_leaf_60_n_est_400_max_depth_10_resto_default.pkl', 'rb') as archivo_modelo:
+with open('../models/random_forest_randstate42_min_samp_leaf_60_n_est_400_max_depth_10_resto_default.pkl', 'rb') as archivo_modelo:
     model = pickle.load(archivo_modelo)
 
 #cargo los diccionarios
