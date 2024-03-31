@@ -12,7 +12,7 @@ def get_base64_of_bin_file(bin_file):
         return base64.b64encode(data).decode('utf-8')
 
 # Path to your local image file
-image_filename = "aro.avif"  # Replace with your actual path
+image_filename = "balon-baloncesto-oficial.jpg"  # Replace with your actual path
 
 # Encode image as base64 string
 encoded_image = get_base64_of_bin_file(image_filename)
@@ -62,15 +62,6 @@ with panel_derecho:
     
     fga_prom = st.slider("Tiros de campo intentados", min_value=0.0, max_value=40.0, step=0.5) #
     pfd_prom = st.slider("Faltas recibidas", min_value=0.0, max_value=20.0, step=0.5) #
-
-st.markdown("""
-    <style>
-        .stSlider > div > div > .stSlider-pointer > div,
-        .stSlider > div > div > .stSlider-buffer > div {
-            background-color: #555555;
-        }
-    </style>
-""", unsafe_allow_html=True)
 
 if st.button("Predecir puntos"):
     # -- Obtengo la key del jugador
