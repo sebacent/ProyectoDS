@@ -12,32 +12,22 @@ def get_base64_of_bin_file(bin_file):
         return base64.b64encode(data).decode('utf-8')
 
 # Path to your local image file
-image_filename = "src/aro-basket.webp"  # Replace with your actual path
+image_filename = "src/balon-oscuro.jpg"  # Replace with your actual path
 
 # Encode image as base64 string
 encoded_image = get_base64_of_bin_file(image_filename)
 
 # Set background image using base64 string
-#background_image = f"""
-#<style>
-#[data-testid="stAppViewContainer"] > .main {{
-#  background-image: url("data:image/jpg;base64,{encoded_image}");  # Use data URI with base64 string
-#  background-size: 100vw 100vh;
-#  background-position: center;
-#  background-repeat: repeat;
-#}}
-#</style>
-#"""
 background_image = f"""
 <style>
-body {{
-  background-image: url("data:image/jpg;base64,{encoded_image}");
-  background-size: cover; /* Cover the entire container */
-  background-position: center; /* Center the image */
+[data-testid="stAppViewContainer"] > .main {{
+  background-image: url("data:image/jpg;base64,{encoded_image}");  # Use data URI with base64 string
+  background-size: 100vw 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
 }}
 </style>
 """
-
 
 st.markdown(background_image, unsafe_allow_html=True)
 
