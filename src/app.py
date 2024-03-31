@@ -32,7 +32,7 @@ background_image = f"""
 st.markdown(background_image, unsafe_allow_html=True)
 
 #cargo el modelo optimizado
-with open('/workspace/ProyectoDS/models/random_model.pkl', 'rb') as archivo_modelo:
+with open('/workspaces/ProyectoDS/models/random_forest_randstate42_min_samp_leaf_60_n_est_400_max_depth_10_resto_default.pkl', 'rb') as archivo_modelo:
     model = pickle.load(archivo_modelo)
 
 #cargo los diccionarios
@@ -72,4 +72,4 @@ if st.button("Predecir puntos"):
 
     prediction = str(round(model.predict([[player_key, fga_prom, pts_prom, min_prom, pfd_prom]])[0]))               
     
-    st.write("Predicción:", prediction)
+    st.write("Predicción:", prediction, "Puntos")
