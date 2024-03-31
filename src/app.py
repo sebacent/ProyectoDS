@@ -43,10 +43,10 @@ team_name_dict = diccionarios.team_name_dict
 players_dict = {k: v for k, v in sorted(players_dict.items(), key=lambda item: item[1])}
 
 
-st.title('Prediccion de puntos para un jugador')
+st.title('Predicción de puntos para un jugador')
 player = st.selectbox('Jugador',list(players_dict.values()))
 
-st.write("Promedios de las estadíosticas del jugador")
+st.write("Promedios de las estadísticas del jugador")
 panel_izquierdo, panel_derecho = st.columns(2, gap='large')
 
 # Agregar contenido al panel izquierdo
