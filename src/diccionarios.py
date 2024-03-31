@@ -2,7 +2,7 @@ import pandas as pd
 
 ## Script para importar los diccionarios y utilizarlos en la app.
 
-players = pd.read_csv('data/raw/data_complete_raw.csv')
+players = pd.read_csv('../data/raw/data_complete_raw.csv')
 
 players = players.sort_values(by='PLAYER_NAME')
 #Se crean diccionarios para el nombre de los equipos y su abreviación, y para el nombre de los jugadores
