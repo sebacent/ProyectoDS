@@ -24,7 +24,7 @@ background_image = f"""
   background-image: url("data:image/jpg;base64,{encoded_image}");  # Use data URI with base64 string
   background-size: 100vw 100vh;
   background-position: center;
-  background-repeat: repeat;
+  background-repeat: no-repeat;
 }}
 </style>
 """
@@ -43,25 +43,25 @@ team_name_dict = diccionarios.team_name_dict
 players_dict = {k: v for k, v in sorted(players_dict.items(), key=lambda item: item[1])}
 
 
-st.title('Prediccion de puntos para un jugador')
+st.title('Predicción de puntos para un jugador')
 player = st.selectbox('Jugador',list(players_dict.values()))
 
-st.write("Promedios de las estadíosticas del jugador")
+st.write("Promedios de las estadísticas del jugador en los últimos 5 partidos")
 panel_izquierdo, panel_derecho = st.columns(2, gap='large')
 
 # Agregar contenido al panel izquierdo
 
 with panel_izquierdo:
+    
     pts_prom = st.slider("Puntos", min_value=0.0, max_value=60.0, step=0.5)#
     min_prom = st.slider("Minutos", min_value=0.0, max_value=50.0, step=0.5) #
 
 
 # Agregar contenido al panel derecho
 with panel_derecho:
+    
     fga_prom = st.slider("Tiros de campo intentados", min_value=0.0, max_value=40.0, step=0.5) #
     pfd_prom = st.slider("Faltas recibidas", min_value=0.0, max_value=20.0, step=0.5) #
-
-
 
 if st.button("Predecir puntos"):
     # -- Obtengo la key del jugador
