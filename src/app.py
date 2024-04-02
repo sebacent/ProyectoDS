@@ -12,7 +12,7 @@ def get_base64_of_bin_file(bin_file):
         return base64.b64encode(data).decode('utf-8')
 
 # Path to your local image file
-image_filename = "src/aro3.jpg"  # Replace with your actual path
+image_filename = "src/pelota-baloncesto.avif"  # Replace with your actual path
 
 # Encode image as base64 string
 encoded_image = get_base64_of_bin_file(image_filename)
