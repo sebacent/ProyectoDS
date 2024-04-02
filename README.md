@@ -1,89 +1,62 @@
-# Data Science Project Boilerplate
+# NBA puntos por jugador - 4Geeks Final Project
 
-This boilerplate is designed to kickstart data science projects by providing a basic setup for database connections, data processing, and machine learning model development. It includes a structured folder organization for your datasets and a set of pre-defined Python packages necessary for most data science tasks.
+## Introducción 
 
-## Structure
+Este repositorio contiene el proyecto final del Bootcamp de 4Geeks, en esta instancia decidimos utilizar datos de la NBA para entrenar un modelo de regresión el cual nos permita predecir la cantidad de puntos que un jugador va a anotar en un partido dado un conjunto de estadísticas promedio de juegos anteriores.
 
-The project is organized as follows:
+Nuestro objetivo es que el usuario elija un jugador e introduzca los promedios de: 
+- Puntos
+- Minutos
+- Tiros de campo intentados
+- Faltas recibidas
+  
+Y luego la aplicación le devuelva la cantidad de puntos que el jugador convertirá de acuerdo a los valores introducidos.
 
-- `app.py` - The main Python script that you run for your project.
-- `explore.py` - A notebook to explore data, play around, visualize, clean, etc. Ideally the notebook code should be migrated to the app.py when moving to production.
-- `utils.py` - This file contains utility code for operations like database connections.
-- `requirements.txt` - This file contains the list of necessary python packages.
-- `models/` - This directory should contain your SQLAlchemy model classes.
-- `data/` - This directory contains the following subdirectories:
-  - `interin/` - For intermediate data that has been transformed.
-  - `processed/` - For the final data to be used for modeling.
-  - `raw/` - For raw data without any processing.
- 
-    
-## Setup
+## Dataset
 
-**Prerequisites**
+Decidimos obtener los datos con los cuales estaremos trabajando desde la [NBA_API](https://github.com/swar/nba_api), utilizando distintos endpoints proporcionados por la misma para la obtención de los datos desados.
 
-Make sure you have Python 3.11+ installed on your. You will also need pip for installing the Python packages.
+El conjunto de datos consta de las estadísticas personales de cada jugador y cada partido disputados en las temporadas 2020-21, 2021-22, 2022-23.
 
-**Installation**
 
-Clone the project repository to your local machine.
+### Permanencia de datos
 
-Navigate to the project directory and install the required Python packages:
+Se creó una instancia SQL, utilizando la librería ``sqlite3``, y se volcaron los datos del dataset dentro de la base de datos 'NBA.db' y dentro de la tabla `ESTADISTICAS`.
+Realizamos algunas consultas sobre la DB para corroborar que todo estuviese correcto.
 
+
+
+### Análisis descriptivo y análisis exploratorio de datos
+
+Se crearon nuevas columnas a partir de las ya existentes, mediante una función la cual calcula el promedio de los 5 partidos anteriores para una estadística especificada.<br>
+No fue necesario hacer ningún tratamiento a los valores nulos ya que no se encontró ninguno.<br>
+Se obvservaron las relaciones lineales importantes y las irrelevantes, a partir de las mismas se eliminaron variables que consideramos irrelevantes para nuestro caso.<br>
+Todo esto se puede ver en el archivo `src/Preprocesamiento.ipynb`
+<br>
+<br>
+<br>
+Luego de analizado y modificado el dataset, quedan 20 columnas y 74987 filas, conteniendo los datos de 784 jugadores, 30 equipos y 3540 partidos.
+
+El dataset completo se puede encontrar en `data/raw/data_complete_raw.csv`, mientras que el dataset modificado se encuentra en `data/processed/data_clean.csv`
+
+## Modelo
+
+Se realizó una evaluación con los modelos base `Lineal, Lasso, Ridge, Decision Tree, Random Forest, Boosting y K-neighbors` con los parámetros por default. <br>
+A partir de la evaluación anterior se tomaron los 3 modelos con el mejor rendimiento, evaluados mediante el R^2 y RMSE. <br>
+Luego realizamos un proceso de optimización de los hiperparámetros, tanto con el método de RandomSearch como el de GridSearch. <br>
+Comparando nuevamente los resultados, concluimos que el Random Forest fue el que nos arrojó los mejores resultados, por lo tanto fue el modelo seleccionado.
+
+## Aplicación
+
+A partir del modelo generado se utilizan las 5 variables predictoras `Jugador, Minutos promedio, Intentos de tiros de campo, Puntos promedio y Faltas recibidas` y la variable a predecir `Puntos`. <br>
+La variable del `Jugador` la mostramos en la aplicación como una lista desplegable mientras que el resto de variables predictoras se muestran como un slider. <br>
+
+## Ejecutar la aplicación
+Para ejecutar la aplicación se debe ejecutar el siguiente comando:
 ```bash
-pip install -r requirements.txt
+streamlit run src/app.py
 ```
 
-**Create a database (if needed)**
-
-Create a new database within the Postgres engine by customizing and executing the following command: `$ createdb -h localhost -U <username> <db_name>`
-Connect to the Postgres engine to use your database, manipulate tables and data: `$ psql -h localhost -U <username> <db_name>`
-NOTE: Remember to check the ./.env file information to get the username and db_name.
-
-Once you are inside PSQL you will be able to create tables, make queries, insert, update or delete data and much more!
-
-**Environment Variables**
-
-Create a .env file in the project root directory to store your environment variables, such as your database connection string:
-
-```makefile
-DATABASE_URL="your_database_connection_url_here"
-```
-
-## Running the Application
-
-To run the application, execute the app.py script from the root of the project directory:
-
-```bash
-python app.py
-```
-
-## Adding Models
-
-To add SQLAlchemy model classes, create new Python script files inside the models/ directory. These classes should be defined according to your database schema.
-
-Example model definition (`models/example_model.py`):
-
-```py
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
-
-Base = declarative_base()
-
-class ExampleModel(Base):
-    __tablename__ = 'example_table'
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-
-```
-
-## Working with Data
-
-You can place your raw datasets in the data/raw directory, intermediate datasets in data/interim, and the processed datasets ready for analysis in data/processed.
-
-To process data, you can modify the app.py script to include your data processing steps, utilizing pandas for data manipulation and analysis.
-
-## Contributors
-
-This template was built as part of the 4Geeks Academy [Data Science and Machine Learning Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning) by [Alejandro Sanchez](https://twitter.com/alesanchezr) and many other contributors. Find out more about [4Geeks Academy's BootCamp programs](https://4geeksacademy.com/us/programs) here.
-
-Other templates and resources like this can be found on the school GitHub page.
+## Autores
+[José Rosales](https://github.com/josedrosales)<br>
+[Sebastián Centurión](https://github.com/sebacent)
